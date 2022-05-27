@@ -9,3 +9,10 @@ Changes are:
 - Adapt it to Matlab R2022a
 - Run in parallel (with the plot functionality disabled)
 - Change the zThresh in the original code from 3 to 3000
+
+Usage:
+
+- Search for "/mnt/large/dataset/Biwi/" and replace it accordingly
+- cd to this directory in matlab
+- run `compile_mex`
+- run `main`
