@@ -4,18 +4,25 @@ function [f_names,n_frames] = get_filenames(dirs, d_name)
    cd(dirs.d_dir); cd(d_name);
    
    % read the depth file names
-   f_names.depth = ls('*.bin');
+   f_names.depth = wildcard_files('*.bin');
+   % fix for the incorrect data
+   if d_name == "01"
+       f_names.depth = f_names.depth(2:end, :);
+   end
    n_dframes = size(f_names.depth,1);
    
    % read the rgb filenames
-   f_names.rgb = ls('*.png');
+   f_names.rgb = wildcard_files('*.png');
+   if d_name == "01"
+       f_names.rgb = f_names.rgb(2:end, :);
+   end
    n_rgbframes = size(f_names.rgb,1);
    cd(dirs.w_dir);
     
    cd(dirs.m_dir); cd(d_name);
    
    % read the mask filenames
-   f_names.mask = ls('*.png') ;
+   f_names.mask = wildcard_files('*.png') ;
    n_mframes = size(f_names.mask,1);
    
    cd(dirs.w_dir);

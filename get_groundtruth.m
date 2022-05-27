@@ -3,14 +3,14 @@ function [gt_data] = get_groundtruth(dirs, d_name)
 cd(dirs.gt_dir); cd(d_name);
 
 gt_data = struct;
-gt_data.fnames = ls('*.bin');
+gt_data.fnames = wildcard_files('*.bin');
 gt_data.nframes = size(gt_data.fnames,1);
 gt_data.gt_loc = zeros(3,gt_data.nframes);
 gt_data.gt_ang = zeros(3,gt_data.nframes);
 
 for frame_id = 1:1:gt_data.nframes
     
-    fid = fopen(gt_data.fnames(frame_id,:), 'r');
+    fid = fopen(gt_data.fnames{frame_id, 1}, 'r');
     
     % first triplet is x,y,z head loc, See[1]
     gt_data.gt_loc(:,frame_id) = fread(fid, 3,'float');

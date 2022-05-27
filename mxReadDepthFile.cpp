@@ -10,7 +10,7 @@
  */
 
 using namespace std;
-void mexFunction (int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
+void mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
     /*-----------------------------------------------------------*/
     /* Check the number of input arguments*/
@@ -45,7 +45,7 @@ void mexFunction (int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
  	int p = 0;
     while(p < im_width*im_height )
     {
-  		 fread( &numempty,sizeof(int),1,pFile);
+  		fread( &numempty,sizeof(int),1,pFile);
 		for(int i = 0; i < numempty; i++)
 			depth_img[ p + i ] = 0;
 
@@ -65,7 +65,7 @@ void mexFunction (int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
     double *Y = mxGetPr(plhs[1]);
     double *Z = mxGetPr(plhs[2]);
     
-    int g_max_z = (int)prhs[2];
+    double g_max_z = *(mxGetDoubles(prhs[2]));
     
 	for(int y = 0; y < im_height; y++)
 	{
@@ -73,6 +73,7 @@ void mexFunction (int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
         {
             // Indexing is according to row order format in C
             float d = depth_img[y*im_width+x];
+            // mexPrintf("depth is %f\n", d);
 			if ( d < g_max_z && d > 0 )
             {
                 // Indexing is according to col order format in Matlab

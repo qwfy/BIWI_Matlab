@@ -4,8 +4,8 @@ function [success] = validate_data (f_names,n_frames, gt)
 % depth frame, a mask frame and a ground truth frame.
 
 for frame_id = 1:1:n_frames
-    d_name = f_names.depth(frame_id,:);
-    m_name = f_names.mask(frame_id,:);
+    d_name = f_names.depth{frame_id, 1};
+    m_name = f_names.mask{frame_id, 1};
     gt_name = gt.fnames(frame_id,:);
     
     % - get the depth frame number
@@ -22,6 +22,8 @@ for frame_id = 1:1:n_frames
     
     success1 = strcmp(d_framenum,m_framenum);
     success2 = strcmp(d_framenum,gt_framenum);
+
+    success = success1 & success2;
     
     if(~success1) 
         fprintf('[Error] Match failed for depth image frame: %s with mask frame',d_framenum)
@@ -31,7 +33,6 @@ for frame_id = 1:1:n_frames
         fprintf('[Error] Match failed for depth image frame: %s with groundtruth frame',d_framenum)
         return;
     end
-    success = success1 & success2;
 end
 
 disp('[Info] Database frame# OK')
