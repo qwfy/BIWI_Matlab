@@ -20,3 +20,5 @@ Usage:
 Note:
 
 - `rotz(gt_ang(3)) * roty(gt_ang(2)) * rotx(gt_ang(1)) == faces_0/xx/_pose.txt(1:3, 1:3)`
+
+![Point Cloud](./point_cloud.png)
